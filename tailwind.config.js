@@ -10,13 +10,19 @@ module.exports = {
         'neo': ['Arial Black', 'Arial', 'sans-serif'],
       },
       colors: {
-        'neo-black': '#000000',
-        'neo-white': '#FFFFFF',
-        'neo-yellow': '#FACC15',
-        'neo-blue': '#2563EB',
-        'neo-pink': '#EC4899',
-        'neo-green': '#4ADE80',
+        // Exact colors from your main site
+        'neo-pure-black': '#000000',
+        'neo-pure-white': '#FFFFFF',
+        'neo-electric-blue': '#2563EB',
+        'neo-cyber-yellow': '#FACC15',
+        'neo-hot-pink': '#EC4899',
+        'neo-neon-green': '#4ADE80',
         'neo-gray': '#F3F4F6',
+        
+        // CSS variable compatibility
+        'background': '#FFFFFF',
+        'foreground': '#000000',
+        'primary': '#2563EB',
       },
       boxShadow: {
         'neo': '8px 8px 0 0 #000000',
@@ -25,9 +31,6 @@ module.exports = {
       },
       borderWidth: {
         'neo': '4px',
-      },
-      transform: {
-        'neo-hover': 'translate(-4px, -4px)',
       },
     },
   },

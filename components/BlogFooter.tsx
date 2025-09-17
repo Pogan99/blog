@@ -37,27 +37,31 @@ export default function BlogFooter() {
   }
 
   return (
-    <footer className="bg-neo-black relative overflow-hidden">
-      {/* Floating Elements */}
-      <div className="absolute top-8 right-8 bg-neo-green neo-border neo-shadow p-4 hidden lg:block transform rotate-3">
-        <svg className="w-6 h-6 text-neo-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+    <footer className="bg-neo-pure-black relative overflow-hidden">
+      {/* Floating Elements - No rotation for professional look */}
+      <div className="absolute top-8 right-8 bg-neo-neon-green neo-border neo-shadow p-4 hidden lg:block">
+        <svg className="w-6 h-6 text-neo-pure-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
         </svg>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-16">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 mb-16">
-          {/* Brand Section */}
+          {/* Brand Section - Exact match to main site */}
           <div className="lg:col-span-2">
-            <div className="bg-neo-white neo-border neo-shadow p-6 mb-8 transform -rotate-1">
+            <div className="bg-neo-pure-white neo-border neo-shadow p-6 mb-8">
               <Link href="https://eagleranked.com/" className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 bg-neo-blue neo-border flex items-center justify-center">
-                  <div className="w-8 h-8 bg-neo-white"></div>
+                <div className="w-12 h-12 bg-neo-electric-blue neo-border flex items-center justify-center">
+                  <img 
+                    src="https://eagleranked.b-cdn.net/eagleranked-assets/logoeaglerank.png" 
+                    alt="EagleRanked Eagle Logo" 
+                    className="w-8 h-8 filter brightness-0 invert"
+                  />
                 </div>
-                <span className="text-xl font-black text-neo-black font-neo">EAGLERANKED</span>
+                <span className="neo-subheadline text-neo-pure-black font-black">EAGLERANKED</span>
               </Link>
-              <p className="text-neo-black font-black leading-tight font-neo">
+              <p className="neo-text text-neo-pure-black font-bold leading-tight">
                 GROW YOUR ORGANIC TRAFFIC WITH SEO-OPTIMIZED CONTENT ON AUTOPILOT
               </p>
             </div>
@@ -66,9 +70,9 @@ export default function BlogFooter() {
             <div className="flex gap-4">
               <a 
                 href="mailto:hello@eagleranked.com" 
-                className="bg-neo-pink neo-border neo-shadow p-4 neo-hover transform rotate-2"
+                className="bg-neo-hot-pink neo-border p-4 hover:scale-110 transition-transform"
               >
-                <svg className="w-6 h-6 text-neo-white" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-6 h-6 text-neo-pure-white" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                   <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                 </svg>
@@ -76,18 +80,18 @@ export default function BlogFooter() {
             </div>
           </div>
 
-          {/* Footer Links */}
+          {/* Footer Links - No rotation for professional look */}
           {footerSections.map((section, sectionIndex) => (
-            <div key={section.title} className="transform" style={{transform: `rotate(${sectionIndex % 2 === 0 ? '1deg' : '-1deg'})`}}>
-              <div className="bg-neo-yellow neo-border neo-shadow p-4 mb-6">
-                <h3 className="text-neo-black font-black font-neo">{section.title}</h3>
+            <div key={section.title}>
+              <div className="bg-neo-cyber-yellow neo-border neo-shadow p-4 mb-6">
+                <h3 className="neo-text-bold text-neo-pure-black font-black">{section.title}</h3>
               </div>
               <ul className="space-y-3">
                 {section.links.map(link => (
                   <li key={link.label}>
                     <a 
                       href={link.href} 
-                      className="text-neo-white font-black hover:text-neo-green transition-colors uppercase tracking-wide text-sm font-neo"
+                      className="text-neo-pure-white font-bold hover:text-neo-neon-green transition-colors uppercase tracking-wide text-sm"
                     >
                       {link.label}
                     </a>
@@ -98,10 +102,10 @@ export default function BlogFooter() {
           ))}
         </div>
 
-        {/* Bottom Section */}
-        <div className="bg-neo-white neo-border neo-shadow p-8 transform rotate-1">
+        {/* Bottom Section - Exact match to main site */}
+        <div className="bg-neo-pure-white neo-border neo-shadow p-8">
           <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
-            <p className="text-neo-black font-black text-sm uppercase tracking-wider font-neo">
+            <p className="text-neo-pure-black font-black text-sm uppercase tracking-wider">
               © {currentYear} EAGLERANKED. ALL RIGHTS RESERVED.
             </p>
             
@@ -109,19 +113,19 @@ export default function BlogFooter() {
               <div className="flex gap-4">
                 <a 
                   href="https://eagleranked.com/privacy" 
-                  className="text-neo-black font-black hover:text-neo-blue transition-colors text-sm uppercase font-neo"
+                  className="text-neo-pure-black font-bold hover:text-neo-electric-blue transition-colors text-sm uppercase"
                 >
                   PRIVACY POLICY
                 </a>
                 <a 
                   href="https://eagleranked.com/terms" 
-                  className="text-neo-black font-black hover:text-neo-blue transition-colors text-sm uppercase font-neo"
+                  className="text-neo-pure-black font-bold hover:text-neo-electric-blue transition-colors text-sm uppercase"
                 >
                   TERMS OF SERVICE
                 </a>
                 <a 
                   href="https://eagleranked.com/cookies" 
-                  className="text-neo-black font-black hover:text-neo-blue transition-colors text-sm uppercase font-neo"
+                  className="text-neo-pure-black font-bold hover:text-neo-electric-blue transition-colors text-sm uppercase"
                 >
                   COOKIE POLICY
                 </a>
@@ -129,10 +133,10 @@ export default function BlogFooter() {
               
               <button 
                 onClick={scrollToTop}
-                className="bg-neo-pink neo-border neo-shadow p-3 neo-hover transform -rotate-3"
+                className="bg-neo-hot-pink neo-border p-3 hover:scale-110 transition-transform"
               >
-                <svg className="w-5 h-5 text-neo-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M7 11l5-5m0 0l5 5m-5-5v12" />
+                <svg className="w-5 h-5 text-neo-pure-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11l5-5m0 0l5 5m-5-5v12" />
                 </svg>
               </button>
             </div>
