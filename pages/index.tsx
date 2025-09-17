@@ -3,6 +3,8 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { createClient } from '@supabase/supabase-js'
 import { useState } from 'react'
+import BlogHeader from '../components/BlogHeader'
+import BlogFooter from '../components/BlogFooter'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -66,57 +68,38 @@ export default function BlogIndex({ posts, featuredPost }: Props) {
         />
       </Head>
       
-      <div className="min-h-screen bg-gray-50">
-        {/* Header */}
-        <header className="bg-white border-b shadow-sm sticky top-0 z-50">
-          <div className="container mx-auto px-4 py-4">
-            <div className="flex items-center justify-between">
-              <Link href="https://eagleranked.com" className="text-2xl font-bold text-eagle-blue hover:text-eagle-dark transition-colors">
-                EagleRanked
-              </Link>
-              <nav className="hidden md:flex items-center gap-6">
-                <Link href="https://eagleranked.com" className="text-gray-600 hover:text-gray-900 transition-colors">
-                  Home
-                </Link>
-                <Link href="https://eagleranked.com/features" className="text-gray-600 hover:text-gray-900 transition-colors">
-                  Features
-                </Link>
-                <Link href="https://eagleranked.com/pricing" className="text-gray-600 hover:text-gray-900 transition-colors">
-                  Pricing
-                </Link>
-                <Link href="https://eagleranked.com/login" className="bg-eagle-blue text-white px-4 py-2 rounded-lg hover:bg-eagle-dark transition-colors">
-                  Get Started
-                </Link>
-              </nav>
-            </div>
-          </div>
-        </header>
+      <div className="min-h-screen bg-white">
+        <BlogHeader />
 
         {/* Hero Section */}
-        <section className="bg-white py-16 border-b">
-          <div className="container mx-auto px-4 text-center">
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-              The EagleRanked
-              <span className="block text-eagle-blue">Blog</span>
-            </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed">
-              Expert insights, proven strategies, and actionable tactics to help you 
-              dominate search rankings and scale your content marketing.
-            </p>
+        <section className="bg-white py-16 border-b-4 border-black">
+          <div className="max-w-7xl mx-auto px-4 text-center">
+            <div className="bg-yellow-400 border-4 border-black p-8 mb-8 inline-block transform -rotate-2">
+              <h1 className="text-5xl md:text-6xl font-black text-black mb-6 transform rotate-1">
+                The EagleRanked
+                <span className="block text-blue-600">BLOG</span>
+              </h1>
+            </div>
+            
+            <div className="bg-white border-4 border-black p-6 max-w-4xl mx-auto mb-8">
+              <p className="text-xl text-black font-bold leading-relaxed">
+                EXPERT INSIGHTS, PROVEN STRATEGIES, AND ACTIONABLE TACTICS TO HELP YOU 
+                DOMINATE SEARCH RANKINGS AND SCALE YOUR CONTENT MARKETING.
+              </p>
+            </div>
             
             {/* Search Bar */}
             <div className="max-w-lg mx-auto">
               <div className="relative">
-                <svg className="w-5 h-5 absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-                <input
-                  type="text"
-                  placeholder="Search articles..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-eagle-blue focus:border-transparent"
-                />
+                <div className="bg-pink-500 border-4 border-black p-4">
+                  <input
+                    type="text"
+                    placeholder="SEARCH ARTICLES..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full px-4 py-3 border-4 border-black font-bold text-black placeholder-gray-600 uppercase tracking-wide"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -124,54 +107,53 @@ export default function BlogIndex({ posts, featuredPost }: Props) {
 
         {/* Featured Post */}
         {featuredPost && (
-          <section className="container mx-auto px-4 py-12">
-            <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
-              <div className="bg-yellow-400 p-2 rounded-lg">
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-              </div>
-              Featured Article
-            </h2>
+          <section className="max-w-7xl mx-auto px-4 py-12">
+            <div className="bg-yellow-400 border-4 border-black p-4 mb-8 inline-block">
+              <h2 className="text-3xl font-black flex items-center gap-3">
+                <span className="bg-green-400 p-2">⭐</span>
+                FEATURED ARTICLE
+              </h2>
+            </div>
             
             <Link href={`/blog/${featuredPost.slug}`}>
-              <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer">
+              <div className="bg-white border-4 border-black hover:shadow-[8px_8px_0_0_#000] transition-all duration-200 cursor-pointer">
                 <div className="md:flex">
                   <div className="md:w-1/2">
                     {featuredPost.img_url && (
                       <img
                         src={featuredPost.img_url}
                         alt={featuredPost.title}
-                        className="w-full h-64 md:h-full object-cover"
+                        className="w-full h-64 md:h-full object-cover border-r-4 border-black"
                       />
                     )}
                   </div>
                   <div className="md:w-1/2 p-8">
                     {featuredPost.keyword && (
-                      <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
-                        {featuredPost.keyword}
-                      </span>
+                      <div className="bg-green-400 border-4 border-black px-3 py-1 inline-block mb-4">
+                        <span className="font-black text-black uppercase text-sm">
+                          {featuredPost.keyword}
+                        </span>
+                      </div>
                     )}
-                    <h3 className="text-3xl font-bold mt-4 mb-4 text-gray-900 hover:text-eagle-blue transition-colors">
+                    <h3 className="text-3xl font-black mb-4 text-black hover:text-blue-600 transition-colors">
                       {featuredPost.title}
                     </h3>
-                    <p className="text-gray-600 text-lg mb-6 leading-relaxed">
+                    <p className="text-black font-bold text-lg mb-6 leading-relaxed">
                       {featuredPost.summary}
                     </p>
-                    <div className="flex items-center gap-4 text-sm text-gray-500 mb-6">
+                    <div className="flex items-center gap-4 text-sm text-black mb-6 font-bold">
                       <span>{new Date(featuredPost.published_at!).toLocaleDateString('en-US', { 
                         year: 'numeric', 
                         month: 'long', 
                         day: 'numeric' 
                       })}</span>
                       <span>•</span>
-                      <span>{Math.max(1, Math.ceil((featuredPost.content?.length || 0) / 200))} min read</span>
+                      <span>{Math.max(1, Math.ceil((featuredPost.content?.length || 0) / 200))} MIN READ</span>
                     </div>
-                    <div className="inline-flex items-center text-eagle-blue font-semibold hover:text-eagle-dark transition-colors">
-                      Read Article
-                      <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                      </svg>
+                    <div className="bg-pink-500 border-4 border-black px-6 py-3 inline-block">
+                      <span className="text-white font-black uppercase">
+                        READ ARTICLE →
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -181,40 +163,44 @@ export default function BlogIndex({ posts, featuredPost }: Props) {
         )}
 
         {/* All Posts */}
-        <section className="container mx-auto px-4 py-12">
-          <h2 className="text-3xl font-bold mb-8">Latest Articles</h2>
+        <section className="max-w-7xl mx-auto px-4 py-12">
+          <div className="bg-blue-600 border-4 border-black p-4 mb-8 inline-block">
+            <h2 className="text-3xl font-black text-white">LATEST ARTICLES</h2>
+          </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredPosts.map(post => (
               <Link key={post.id} href={`/blog/${post.slug}`}>
-                <article className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden">
+                <article className="bg-white border-4 border-black hover:shadow-[8px_8px_0_0_#000] transition-all duration-200 cursor-pointer">
                   {post.img_url && (
                     <div className="relative overflow-hidden">
                       <img
                         src={post.img_url}
                         alt={post.title}
-                        className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
+                        className="w-full h-48 object-cover border-b-4 border-black"
                       />
                     </div>
                   )}
                   <div className="p-6">
                     {post.keyword && (
-                      <span className="bg-blue-100 text-eagle-blue px-2 py-1 rounded text-sm font-medium">
-                        {post.keyword}
-                      </span>
+                      <div className="bg-blue-600 border-2 border-black px-2 py-1 inline-block mb-3">
+                        <span className="text-white font-black text-sm uppercase">
+                          {post.keyword}
+                        </span>
+                      </div>
                     )}
-                    <h3 className="text-xl font-bold mt-3 mb-3 text-gray-900 hover:text-eagle-blue transition-colors line-clamp-2">
+                    <h3 className="text-xl font-black mt-3 mb-3 text-black hover:text-blue-600 transition-colors line-clamp-2">
                       {post.title}
                     </h3>
-                    <p className="text-gray-600 mb-4 line-clamp-3 leading-relaxed">
+                    <p className="text-black font-bold mb-4 line-clamp-3 leading-relaxed">
                       {post.summary}
                     </p>
-                    <div className="flex items-center justify-between text-sm text-gray-500">
+                    <div className="flex items-center justify-between text-sm text-black font-bold">
                       <span>{new Date(post.published_at!).toLocaleDateString('en-US', { 
                         month: 'short', 
                         day: 'numeric' 
                       })}</span>
-                      <span>{Math.max(1, Math.ceil((post.content?.length || 0) / 200))} min read</span>
+                      <span>{Math.max(1, Math.ceil((post.content?.length || 0) / 200))} MIN READ</span>
                     </div>
                   </div>
                 </article>
@@ -224,81 +210,40 @@ export default function BlogIndex({ posts, featuredPost }: Props) {
 
           {filteredPosts.length === 0 && (
             <div className="text-center py-12">
-              <div className="text-gray-400 mb-4">
-                <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
+              <div className="bg-gray-200 border-4 border-black p-8 max-w-md mx-auto">
+                <div className="text-black mb-4">
+                  <svg className="w-16 h-16 mx-auto" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-black text-black mb-2">NO ARTICLES FOUND</h3>
+                <p className="text-black font-bold">TRY ADJUSTING YOUR SEARCH TERMS</p>
               </div>
-              <h3 className="text-xl font-semibold text-gray-600 mb-2">No articles found</h3>
-              <p className="text-gray-500">Try adjusting your search terms</p>
             </div>
           )}
         </section>
 
         {/* CTA Section */}
-        <section className="bg-gray-900 py-16">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold text-white mb-4">
-              Ready to Dominate Search Rankings?
-            </h2>
-            <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-              Start implementing these strategies with EagleRanked's AI-powered content marketing platform.
-            </p>
-            <Link href="https://eagleranked.com/signup" className="bg-eagle-blue text-white px-8 py-4 rounded-lg font-semibold hover:bg-eagle-dark transition-colors inline-flex items-center">
-              Start Your Free Trial
-              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
+        <section className="bg-black py-16 border-t-4 border-pink-500">
+          <div className="max-w-7xl mx-auto px-4 text-center">
+            <div className="bg-pink-500 border-4 border-white p-8 max-w-4xl mx-auto mb-8">
+              <h2 className="text-3xl font-black text-white mb-4">
+                READY TO DOMINATE SEARCH RANKINGS?
+              </h2>
+              <p className="text-xl text-white font-bold mb-8">
+                START IMPLEMENTING THESE STRATEGIES WITH EAGLERANKED'S AI-POWERED CONTENT MARKETING PLATFORM.
+              </p>
+              <a 
+                href="https://eagleranked.com/signup" 
+                className="bg-yellow-400 border-4 border-black px-8 py-4 font-black text-black hover:bg-yellow-300 transition-colors inline-block uppercase"
+              >
+                START YOUR FREE TRIAL →
+              </a>
+            </div>
           </div>
         </section>
 
-        {/* Footer */}
-        <footer className="bg-white border-t py-12">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-              <div>
-                <Link href="https://eagleranked.com" className="text-2xl font-bold text-eagle-blue mb-4 block">
-                  EagleRanked
-                </Link>
-                <p className="text-gray-600">
-                  AI-powered content marketing platform for dominating search rankings.
-                </p>
-              </div>
-              
-              <div>
-                <h4 className="font-semibold text-gray-900 mb-4">Product</h4>
-                <ul className="space-y-2 text-gray-600">
-                  <li><Link href="https://eagleranked.com/features" className="hover:text-gray-900">Features</Link></li>
-                  <li><Link href="https://eagleranked.com/pricing" className="hover:text-gray-900">Pricing</Link></li>
-                  <li><Link href="https://eagleranked.com/integrations" className="hover:text-gray-900">Integrations</Link></li>
-                </ul>
-              </div>
-              
-              <div>
-                <h4 className="font-semibold text-gray-900 mb-4">Resources</h4>
-                <ul className="space-y-2 text-gray-600">
-                  <li><Link href="/" className="hover:text-gray-900">Blog</Link></li>
-                  <li><Link href="https://eagleranked.com/docs" className="hover:text-gray-900">Documentation</Link></li>
-                  <li><Link href="https://eagleranked.com/contact" className="hover:text-gray-900">Support</Link></li>
-                </ul>
-              </div>
-              
-              <div>
-                <h4 className="font-semibold text-gray-900 mb-4">Company</h4>
-                <ul className="space-y-2 text-gray-600">
-                  <li><Link href="https://eagleranked.com/contact" className="hover:text-gray-900">Contact</Link></li>
-                  <li><Link href="https://eagleranked.com/privacy" className="hover:text-gray-900">Privacy</Link></li>
-                  <li><Link href="https://eagleranked.com/terms" className="hover:text-gray-900">Terms</Link></li>
-                </ul>
-              </div>
-            </div>
-            
-            <div className="border-t mt-8 pt-8 text-center text-gray-600">
-              <p>&copy; 2024 EagleRanked. All rights reserved.</p>
-            </div>
-          </div>
-        </footer>
+        <BlogFooter />
       </div>
     </>
   )

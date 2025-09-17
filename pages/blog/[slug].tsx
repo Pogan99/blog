@@ -2,6 +2,8 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { createClient } from '@supabase/supabase-js'
+import BlogHeader from '../../components/BlogHeader'
+import BlogFooter from '../../components/BlogFooter'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -80,69 +82,69 @@ export default function BlogPost({ post, relatedPosts }: Props) {
         />
       </Head>
       
-      <div className="min-h-screen bg-gray-50">
-        {/* Header */}
-        <header className="bg-white border-b shadow-sm sticky top-0 z-50">
-          <div className="container mx-auto px-4 py-4">
-            <div className="flex items-center justify-between">
-              <Link href="/" className="text-2xl font-bold text-eagle-blue hover:text-eagle-dark transition-colors">
-                EagleRanked Blog
-              </Link>
-              <div className="flex items-center gap-6">
-                <Link href="/" className="text-gray-600 hover:text-gray-900 transition-colors">
-                  ← Back to Blog
-                </Link>
-                <Link href="https://eagleranked.com" className="bg-eagle-blue text-white px-4 py-2 rounded-lg hover:bg-eagle-dark transition-colors">
-                  Main Site
-                </Link>
-              </div>
-            </div>
-          </div>
-        </header>
+      <div className="min-h-screen bg-white">
+        <BlogHeader />
 
         {/* Article */}
         <article className="bg-white">
-          <div className="container mx-auto px-4 py-12">
+          <div className="max-w-7xl mx-auto px-4 py-12">
             <div className="max-w-4xl mx-auto">
+              {/* Back Button */}
+              <div className="mb-8">
+                <Link href="/">
+                  <div className="bg-pink-500 border-4 border-black px-6 py-3 inline-block hover:bg-pink-400 transition-colors">
+                    <span className="text-white font-black uppercase">← BACK TO BLOG</span>
+                  </div>
+                </Link>
+              </div>
+
               {/* Article Meta */}
               <div className="mb-8">
                 {post.keyword && (
-                  <span className="inline-block bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium mb-6">
-                    {post.keyword}
-                  </span>
+                  <div className="bg-green-400 border-4 border-black px-4 py-2 inline-block mb-6 transform -rotate-1">
+                    <span className="font-black text-black uppercase">
+                      {post.keyword}
+                    </span>
+                  </div>
                 )}
                 
-                <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-                  {post.title}
-                </h1>
+                <div className="bg-yellow-400 border-4 border-black p-8 mb-6 transform rotate-1">
+                  <h1 className="text-4xl md:text-5xl font-black text-black mb-6 leading-tight transform -rotate-1">
+                    {post.title}
+                  </h1>
+                </div>
                 
                 {post.summary && (
-                  <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                    {post.summary}
-                  </p>
+                  <div className="bg-white border-4 border-black p-6 mb-8">
+                    <p className="text-xl text-black font-bold leading-relaxed">
+                      {post.summary}
+                    </p>
+                  </div>
                 )}
 
-                <div className="flex flex-wrap items-center text-sm text-gray-500 gap-4 mb-8">
-                  <div className="flex items-center">
-                    <span>By EagleRanked Team</span>
-                  </div>
-                  <div className="flex items-center">
-                    <span>•</span>
-                  </div>
-                  <div className="flex items-center">
-                    <time dateTime={post.published_at!}>
-                      {publishedDate.toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      })}
-                    </time>
-                  </div>
-                  <div className="flex items-center">
-                    <span>•</span>
-                  </div>
-                  <div className="flex items-center">
-                    <span>{readingTime} min read</span>
+                <div className="bg-gray-100 border-4 border-black p-4 mb-8">
+                  <div className="flex flex-wrap items-center text-sm text-black font-black gap-4">
+                    <div className="flex items-center">
+                      <span>BY EAGLERANKED TEAM</span>
+                    </div>
+                    <div className="flex items-center">
+                      <span>•</span>
+                    </div>
+                    <div className="flex items-center">
+                      <time dateTime={post.published_at!}>
+                        {publishedDate.toLocaleDateString('en-US', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
+                      </time>
+                    </div>
+                    <div className="flex items-center">
+                      <span>•</span>
+                    </div>
+                    <div className="flex items-center">
+                      <span>{readingTime} MIN READ</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -150,41 +152,47 @@ export default function BlogPost({ post, relatedPosts }: Props) {
               {/* Featured Image */}
               {post.img_url && (
                 <div className="mb-12">
-                  <img 
-                    src={post.img_url} 
-                    alt={post.title}
-                    className="w-full h-64 md:h-96 object-cover rounded-xl shadow-lg"
-                  />
+                  <div className="border-4 border-black">
+                    <img 
+                      src={post.img_url} 
+                      alt={post.title}
+                      className="w-full h-64 md:h-96 object-cover"
+                    />
+                  </div>
                 </div>
               )}
 
               {/* Article Content */}
               <div className="prose prose-lg max-w-none">
                 {post.content ? (
-                  <div 
-                    dangerouslySetInnerHTML={{ __html: post.content }}
-                    className="leading-relaxed"
-                  />
+                  <div className="bg-white border-4 border-black p-8">
+                    <div 
+                      dangerouslySetInnerHTML={{ __html: post.content }}
+                      className="leading-relaxed text-black font-medium"
+                    />
+                  </div>
                 ) : (
                   <div className="text-center py-12">
-                    <p className="text-gray-600 text-lg">Content coming soon...</p>
+                    <div className="bg-yellow-400 border-4 border-black p-8">
+                      <p className="text-black font-black text-lg">CONTENT COMING SOON...</p>
+                    </div>
                   </div>
                 )}
               </div>
 
               {/* Article CTA */}
-              <div className="mt-12 pt-8 border-t border-gray-200">
-                <div className="bg-gradient-to-r from-eagle-blue to-blue-600 rounded-xl p-8 text-white text-center">
-                  <h3 className="text-2xl font-bold mb-4">Ready to Scale Your Content Marketing?</h3>
-                  <p className="text-blue-100 mb-6 text-lg">
-                    Get expert help implementing these strategies with EagleRanked's AI-powered platform.
+              <div className="mt-12 pt-8">
+                <div className="bg-gradient-to-r from-blue-600 to-pink-500 border-4 border-black p-8 text-white text-center">
+                  <h3 className="text-2xl font-black mb-4">READY TO SCALE YOUR CONTENT MARKETING?</h3>
+                  <p className="text-lg font-bold mb-6">
+                    GET EXPERT HELP IMPLEMENTING THESE STRATEGIES WITH EAGLERANKED'S AI-POWERED PLATFORM.
                   </p>
-                  <Link 
+                  <a 
                     href="https://eagleranked.com/signup"
-                    className="inline-block bg-white text-eagle-blue font-bold py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors"
+                    className="bg-yellow-400 border-4 border-black text-black font-black py-3 px-8 hover:bg-yellow-300 transition-colors inline-block uppercase"
                   >
-                    Start Your Free Trial
-                  </Link>
+                    START YOUR FREE TRIAL →
+                  </a>
                 </div>
               </div>
             </div>
@@ -193,31 +201,33 @@ export default function BlogPost({ post, relatedPosts }: Props) {
 
         {/* Related Posts */}
         {relatedPosts.length > 0 && (
-          <section className="bg-gray-100 py-16">
-            <div className="container mx-auto px-4">
+          <section className="bg-gray-100 py-16 border-t-4 border-black">
+            <div className="max-w-7xl mx-auto px-4">
               <div className="max-w-4xl mx-auto">
-                <h2 className="text-3xl font-bold mb-8 text-center">Related Articles</h2>
+                <div className="bg-blue-600 border-4 border-black p-4 mb-8 inline-block">
+                  <h2 className="text-3xl font-black text-white text-center">RELATED ARTICLES</h2>
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {relatedPosts.map(relatedPost => (
                     <Link key={relatedPost.id} href={`/blog/${relatedPost.slug}`}>
-                      <article className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden">
+                      <article className="bg-white border-4 border-black hover:shadow-[8px_8px_0_0_#000] transition-all duration-200 cursor-pointer">
                         {relatedPost.img_url && (
                           <img 
                             src={relatedPost.img_url} 
                             alt={relatedPost.title}
-                            className="w-full h-32 object-cover"
+                            className="w-full h-32 object-cover border-b-4 border-black"
                           />
                         )}
                         <div className="p-4">
-                          <h3 className="font-bold mb-2 hover:text-eagle-blue line-clamp-2">
+                          <h3 className="font-black mb-2 hover:text-blue-600 line-clamp-2">
                             {relatedPost.title}
                           </h3>
                           {relatedPost.summary && (
-                            <p className="text-sm text-gray-600 line-clamp-2 mb-3">
+                            <p className="text-sm text-black font-bold line-clamp-2 mb-3">
                               {relatedPost.summary}
                             </p>
                           )}
-                          <div className="text-xs text-gray-500">
+                          <div className="text-xs text-black font-black">
                             {new Date(relatedPost.published_at!).toLocaleDateString()}
                           </div>
                         </div>
@@ -230,21 +240,7 @@ export default function BlogPost({ post, relatedPosts }: Props) {
           </section>
         )}
 
-        {/* Footer */}
-        <footer className="bg-white border-t py-12">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <div className="flex justify-center space-x-8 mb-6">
-                <Link href="/" className="text-gray-600 hover:text-eagle-blue">Blog Home</Link>
-                <Link href="https://eagleranked.com" className="text-gray-600 hover:text-eagle-blue">Main Site</Link>
-                <Link href="https://eagleranked.com/contact" className="text-gray-600 hover:text-eagle-blue">Contact</Link>
-              </div>
-              <p className="text-gray-500 text-sm">
-                &copy; 2024 EagleRanked. All rights reserved.
-              </p>
-            </div>
-          </div>
-        </footer>
+        <BlogFooter />
       </div>
     </>
   )
