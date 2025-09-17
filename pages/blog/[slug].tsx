@@ -11,15 +11,15 @@ const supabase = createClient(
 interface BlogPost {
   id: string
   title: string
-  slug: string
-  summary: string
-  content: string
-  img_url?: string
-  published_at: string
-  keyword?: string
+  content: string | null
+  summary: string | null
+  img_url: string | null
   status: string
-  author_name?: string
-  meta_description?: string
+  keyword: string | null
+  slug: string | null
+  created_at: string
+  updated_at: string
+  published_at: string | null
 }
 
 interface Props {
@@ -28,30 +28,30 @@ interface Props {
 }
 
 export default function BlogPost({ post, relatedPosts }: Props) {
-  const publishedDate = new Date(post.published_at)
-  const readingTime = Math.ceil(post.content.length / 1000) // Rough estimate
+  const publishedDate = new Date(post.published_at!)
+  const readingTime = Math.max(1, Math.ceil((post.content?.length || 0) / 200))
 
   return (
     <>
       <Head>
         <title>{post.title} | EagleRanked Blog</title>
-        <meta name="description" content={post.meta_description || post.summary} />
+        <meta name="description" content={post.summary || `Read ${post.title} on EagleRanked Blog`} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="canonical" href={`https://blog.eagleranked.com/blog/${post.slug}`} />
         
         {/* Open Graph tags */}
         <meta property="og:title" content={`${post.title} | EagleRanked Blog`} />
-        <meta property="og:description" content={post.meta_description || post.summary} />
+        <meta property="og:description" content={post.summary || `Read ${post.title} on EagleRanked Blog`} />
         <meta property="og:url" content={`https://blog.eagleranked.com/blog/${post.slug}`} />
         <meta property="og:type" content="article" />
         <meta property="og:site_name" content="EagleRanked Blog" />
-        <meta property="article:published_time" content={post.published_at} />
+        <meta property="article:published_time" content={post.published_at!} />
         {post.img_url && <meta property="og:image" content={post.img_url} />}
         
         {/* Twitter Card tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={`${post.title} | EagleRanked Blog`} />
-        <meta name="twitter:description" content={post.meta_description || post.summary} />
+        <meta name="twitter:description" content={post.summary || `Read ${post.title} on EagleRanked Blog`} />
         {post.img_url && <meta name="twitter:image" content={post.img_url} />}
         
         {/* JSON-LD Schema */}
@@ -62,10 +62,10 @@ export default function BlogPost({ post, relatedPosts }: Props) {
               "@context": "https://schema.org",
               "@type": "Article",
               "headline": post.title,
-              "description": post.meta_description || post.summary,
+              "description": post.summary || post.title,
               "author": {
-                "@type": "Person",
-                "name": post.author_name || "EagleRanked Team"
+                "@type": "Organization",
+                "name": "EagleRanked Team"
               },
               "publisher": {
                 "@type": "Organization",
@@ -81,64 +81,65 @@ export default function BlogPost({ post, relatedPosts }: Props) {
       </Head>
       
       <div className="min-h-screen bg-gray-50">
-        {/* Navigation */}
-        <nav className="bg-white border-b border-gray-200">
-          <div className="container mx-auto px-4">
-            <div className="flex justify-between items-center h-16">
-              <Link href="/" className="font-bold text-2xl text-gray-900">
+        {/* Header */}
+        <header className="bg-white border-b shadow-sm sticky top-0 z-50">
+          <div className="container mx-auto px-4 py-4">
+            <div className="flex items-center justify-between">
+              <Link href="/" className="text-2xl font-bold text-eagle-blue hover:text-eagle-dark transition-colors">
                 EagleRanked Blog
               </Link>
-              <div className="flex space-x-6">
-                <Link href="https://eagleranked.com" className="text-gray-600 hover:text-blue-600 font-medium">
-                  Main Site
+              <div className="flex items-center gap-6">
+                <Link href="/" className="text-gray-600 hover:text-gray-900 transition-colors">
+                  ← Back to Blog
                 </Link>
-                <Link href="/" className="text-gray-600 hover:text-blue-600">
-                  All Posts
+                <Link href="https://eagleranked.com" className="bg-eagle-blue text-white px-4 py-2 rounded-lg hover:bg-eagle-dark transition-colors">
+                  Main Site
                 </Link>
               </div>
             </div>
           </div>
-        </nav>
+        </header>
 
-        {/* Article Header */}
+        {/* Article */}
         <article className="bg-white">
           <div className="container mx-auto px-4 py-12">
             <div className="max-w-4xl mx-auto">
-              {/* Breadcrumb */}
-              <nav className="mb-8">
-                <Link href="/" className="text-blue-600 hover:text-blue-800">
-                  ← Back to Blog
-                </Link>
-              </nav>
-
               {/* Article Meta */}
               <div className="mb-8">
                 {post.keyword && (
-                  <span className="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium mb-4">
+                  <span className="inline-block bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium mb-6">
                     {post.keyword}
                   </span>
                 )}
                 
-                <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+                <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
                   {post.title}
                 </h1>
                 
-                <p className="text-xl text-gray-600 mb-6 leading-relaxed">
-                  {post.summary}
-                </p>
+                {post.summary && (
+                  <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+                    {post.summary}
+                  </p>
+                )}
 
-                <div className="flex flex-wrap items-center text-sm text-gray-500 gap-4">
+                <div className="flex flex-wrap items-center text-sm text-gray-500 gap-4 mb-8">
                   <div className="flex items-center">
-                    <span>By {post.author_name || 'EagleRanked Team'}</span>
+                    <span>By EagleRanked Team</span>
                   </div>
                   <div className="flex items-center">
-                    <time dateTime={post.published_at}>
+                    <span>•</span>
+                  </div>
+                  <div className="flex items-center">
+                    <time dateTime={post.published_at!}>
                       {publishedDate.toLocaleDateString('en-US', {
                         year: 'numeric',
                         month: 'long',
                         day: 'numeric'
                       })}
                     </time>
+                  </div>
+                  <div className="flex items-center">
+                    <span>•</span>
                   </div>
                   <div className="flex items-center">
                     <span>{readingTime} min read</span>
@@ -152,31 +153,37 @@ export default function BlogPost({ post, relatedPosts }: Props) {
                   <img 
                     src={post.img_url} 
                     alt={post.title}
-                    className="w-full h-64 md:h-96 object-cover rounded-lg shadow-lg"
+                    className="w-full h-64 md:h-96 object-cover rounded-xl shadow-lg"
                   />
                 </div>
               )}
 
               {/* Article Content */}
               <div className="prose prose-lg max-w-none">
-                <div 
-                  dangerouslySetInnerHTML={{ __html: post.content }}
-                  className="leading-relaxed"
-                />
+                {post.content ? (
+                  <div 
+                    dangerouslySetInnerHTML={{ __html: post.content }}
+                    className="leading-relaxed"
+                  />
+                ) : (
+                  <div className="text-center py-12">
+                    <p className="text-gray-600 text-lg">Content coming soon...</p>
+                  </div>
+                )}
               </div>
 
-              {/* Article Footer */}
+              {/* Article CTA */}
               <div className="mt-12 pt-8 border-t border-gray-200">
-                <div className="bg-blue-50 rounded-lg p-6">
-                  <h3 className="text-xl font-bold mb-2">Ready to boost your SEO?</h3>
-                  <p className="text-gray-600 mb-4">
-                    Get expert help with your content marketing strategy and SEO optimization.
+                <div className="bg-gradient-to-r from-eagle-blue to-blue-600 rounded-xl p-8 text-white text-center">
+                  <h3 className="text-2xl font-bold mb-4">Ready to Scale Your Content Marketing?</h3>
+                  <p className="text-blue-100 mb-6 text-lg">
+                    Get expert help implementing these strategies with EagleRanked's AI-powered platform.
                   </p>
                   <Link 
-                    href="https://eagleranked.com/contact"
-                    className="inline-block bg-blue-600 text-white font-medium py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors"
+                    href="https://eagleranked.com/signup"
+                    className="inline-block bg-white text-eagle-blue font-bold py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors"
                   >
-                    Get Started Today
+                    Start Your Free Trial
                   </Link>
                 </div>
               </div>
@@ -186,14 +193,14 @@ export default function BlogPost({ post, relatedPosts }: Props) {
 
         {/* Related Posts */}
         {relatedPosts.length > 0 && (
-          <section className="bg-gray-100 py-12">
+          <section className="bg-gray-100 py-16">
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto">
                 <h2 className="text-3xl font-bold mb-8 text-center">Related Articles</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {relatedPosts.map(relatedPost => (
                     <Link key={relatedPost.id} href={`/blog/${relatedPost.slug}`}>
-                      <article className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer overflow-hidden">
+                      <article className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden">
                         {relatedPost.img_url && (
                           <img 
                             src={relatedPost.img_url} 
@@ -202,14 +209,16 @@ export default function BlogPost({ post, relatedPosts }: Props) {
                           />
                         )}
                         <div className="p-4">
-                          <h3 className="font-bold mb-2 hover:text-blue-600 line-clamp-2">
+                          <h3 className="font-bold mb-2 hover:text-eagle-blue line-clamp-2">
                             {relatedPost.title}
                           </h3>
-                          <p className="text-sm text-gray-600 line-clamp-2">
-                            {relatedPost.summary}
-                          </p>
-                          <div className="mt-3 text-xs text-gray-500">
-                            {new Date(relatedPost.published_at).toLocaleDateString()}
+                          {relatedPost.summary && (
+                            <p className="text-sm text-gray-600 line-clamp-2 mb-3">
+                              {relatedPost.summary}
+                            </p>
+                          )}
+                          <div className="text-xs text-gray-500">
+                            {new Date(relatedPost.published_at!).toLocaleDateString()}
                           </div>
                         </div>
                       </article>
@@ -222,15 +231,15 @@ export default function BlogPost({ post, relatedPosts }: Props) {
         )}
 
         {/* Footer */}
-        <footer className="bg-gray-900 text-white py-8">
+        <footer className="bg-white border-t py-12">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <div className="flex justify-center space-x-8 mb-4">
-                <Link href="/" className="hover:text-blue-400">Blog Home</Link>
-                <Link href="https://eagleranked.com" className="hover:text-blue-400">Main Site</Link>
-                <Link href="https://eagleranked.com/contact" className="hover:text-blue-400">Contact</Link>
+              <div className="flex justify-center space-x-8 mb-6">
+                <Link href="/" className="text-gray-600 hover:text-eagle-blue">Blog Home</Link>
+                <Link href="https://eagleranked.com" className="text-gray-600 hover:text-eagle-blue">Main Site</Link>
+                <Link href="https://eagleranked.com/contact" className="text-gray-600 hover:text-eagle-blue">Contact</Link>
               </div>
-              <p className="text-gray-400 text-sm">
+              <p className="text-gray-500 text-sm">
                 &copy; 2024 EagleRanked. All rights reserved.
               </p>
             </div>
@@ -285,7 +294,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       }
     }
 
-    // Get related posts (same keyword or recent posts)
+    // Get related posts (recent posts excluding current)
     const { data: relatedPosts } = await supabase
       .from('company_blog_posts')
       .select('id, title, slug, summary, img_url, published_at')
