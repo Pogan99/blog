@@ -1,0 +1,215 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Custom CSS variables for your brand colors */
+:root {
+  --eagle-blue: #3b82f6;
+  --eagle-dark: #1e40af;
+  --eagle-gray: #6b7280;
+}
+
+/* Blog content styling */
+.prose {
+  max-width: 65ch;
+  color: #374151;
+  line-height: 1.7;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+  color: #111827;
+  font-weight: 700;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+
+.prose h1 { font-size: 2.25em; }
+.prose h2 { font-size: 1.875em; }
+.prose h3 { font-size: 1.5em; }
+.prose h4 { font-size: 1.25em; }
+
+.prose p {
+  margin-bottom: 1.25em;
+}
+
+.prose img {
+  border-radius: 0.5rem;
+  margin: 2em 0;
+  width: 100%;
+  height: auto;
+}
+
+.prose blockquote {
+  border-left: 4px solid var(--eagle-blue);
+  padding-left: 1em;
+  margin: 1.5em 0;
+  font-style: italic;
+  color: #6b7280;
+  background-color: #f9fafb;
+  padding: 1em;
+  border-radius: 0.5rem;
+}
+
+.prose ul, .prose ol {
+  margin: 1.25em 0;
+  padding-left: 1.5em;
+}
+
+.prose li {
+  margin: 0.5em 0;
+}
+
+.prose code {
+  background-color: #f3f4f6;
+  padding: 0.25em 0.375em;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+  color: #ef4444;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.prose pre {
+  background-color: #1f2937;
+  color: #f9fafb;
+  padding: 1.25em;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1.5em 0;
+}
+
+.prose pre code {
+  background-color: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.prose a {
+  color: var(--eagle-blue);
+  text-decoration: underline;
+}
+
+.prose a:hover {
+  color: var(--eagle-dark);
+}
+
+.prose strong {
+  font-weight: 700;
+  color: #111827;
+}
+
+.prose em {
+  font-style: italic;
+}
+
+/* Utility classes */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Custom brand colors as Tailwind utilities */
+.text-eagle-blue {
+  color: var(--eagle-blue);
+}
+
+.text-eagle-dark {
+  color: var(--eagle-dark);
+}
+
+.text-eagle-gray {
+  color: var(--eagle-gray);
+}
+
+.bg-eagle-blue {
+  background-color: var(--eagle-blue);
+}
+
+.bg-eagle-dark {
+  background-color: var(--eagle-dark);
+}
+
+.border-eagle-blue {
+  border-color: var(--eagle-blue);
+}
+
+/* Hover states */
+.hover\:text-eagle-blue:hover {
+  color: var(--eagle-blue);
+}
+
+.hover\:text-eagle-dark:hover {
+  color: var(--eagle-dark);
+}
+
+.hover\:bg-eagle-blue:hover {
+  background-color: var(--eagle-blue);
+}
+
+.hover\:bg-eagle-dark:hover {
+  background-color: var(--eagle-dark);
+}
+
+/* Focus states for accessibility */
+.focus\:ring-eagle-blue:focus {
+  --tw-ring-color: var(--eagle-blue);
+}
+
+/* Smooth transitions */
+.transition-colors {
+  transition-property: color, background-color, border-color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition-shadow {
+  transition-property: box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition-transform {
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out;
+}
