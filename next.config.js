@@ -4,16 +4,11 @@ const nextConfig = {
   swcMinify: true,
   images: {
     domains: ['images.unsplash.com', 'bsuhbjezngvrmcqjkypy.supabase.co'],
-    unoptimized: true
   },
-  async rewrites() {
-    return [
-      {
-        source: '/',
-        destination: '/blog'
-      }
-    ]
-  }
+  env: {
+    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  },
 }
 
 module.exports = nextConfig
